@@ -1,5 +1,8 @@
 package edu.aitu.visitor;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -65,6 +68,17 @@ public final class VisitorPatternTest {
             equal(2, search.getMatches().size());
         });
         test("null predicate rejected", () -> expect(NullPointerException.class, () -> new SearchVisitor(null)));
+        test("nested file count", () -> equal(5L, count(fixture())));
+        test("empty file count", () -> equal(0L, count(new Directory("empty", List.of()))));
+        test("direct file count", () -> equal(1L, count(new File("zero", 0))));
+        test("independent visitors on same tree", () -> {
+            Directory root = fixture();
+            equal(6100L, size(root));
+            equal(5L, count(root));
+            equal(List.of("readme.txt", "notes.TXT", "todo.txt"), matchingTextNames(root));
+            equal(6100L, size(root));
+        });
+        test("demo reports actual results", VisitorPatternTest::demoResults);
         System.out.println("All " + passed + " tests passed.");
     }
 
@@ -118,6 +132,30 @@ public final class VisitorPatternTest {
 
     private static List<String> names(SearchVisitor search) {
         return search.getMatches().stream().map(File::getName).toList();
+    }
+
+    private static long count(FileSystemElement root) {
+        FileCountVisitor visitor = new FileCountVisitor();
+        root.accept(visitor);
+        return visitor.getFileCount();
+    }
+
+    private static void demoResults() {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        PrintStream original = System.out;
+        try (PrintStream capture = new PrintStream(buffer, true, StandardCharsets.UTF_8)) {
+            System.setOut(capture);
+            Demo.main(new String[0]);
+        } finally {
+            System.setOut(original);
+        }
+        String output = buffer.toString(StandardCharsets.UTF_8);
+        for (String expected : List.of("Total size: 6100 bytes", "readme.txt (100 bytes)",
+                "notes.TXT (200 bytes)", "todo.txt (500 bytes)", "File count: 5")) {
+            if (!output.contains(expected)) {
+                throw new AssertionError("Demo is missing: " + expected);
+            }
+        }
     }
 
     private static void test(String name, Runnable body) {
