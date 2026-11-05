@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1570" viewBox="0 0 1900 1570"><rect width="100%" height="100%" fill="white"/>
+<rect x="100" y="45" width="750" height="265" fill="none" stroke="black" stroke-width="3"/>
+<text x="368.578125" y="91" font-family="Times New Roman" font-size="37" fill="black">&lt;&lt;interface&gt;&gt;</text>
+<text x="302.375" y="137" font-family="Times New Roman" font-size="42" font-weight="bold" fill="black">FileSystemElement</text>
+<polyline points="100,161 850,161" fill="none" stroke="black" stroke-width="3"/>
+<text x="118" y="208" font-family="Times New Roman" font-size="37" fill="black">+ getName(): String</text>
+<text x="118" y="256" font-family="Times New Roman" font-size="37" fill="black">+ accept(v: FileSystemVisitor): void</text>
+<rect x="1020" y="45" width="780" height="265" fill="none" stroke="black" stroke-width="3"/>
+<text x="1303.578125" y="91" font-family="Times New Roman" font-size="37" fill="black">&lt;&lt;interface&gt;&gt;</text>
+<text x="1250.984375" y="137" font-family="Times New Roman" font-size="42" font-weight="bold" fill="black">FileSystemVisitor</text>
+<polyline points="1020,161 1800,161" fill="none" stroke="black" stroke-width="3"/>
+<text x="1038" y="208" font-family="Times New Roman" font-size="37" fill="black">+ visitFile(f: File): void</text>
+<text x="1038" y="256" font-family="Times New Roman" font-size="37" fill="black">+ visitDirectory(d: Directory): void</text>
+<rect x="100" y="520" width="750" height="335" fill="none" stroke="black" stroke-width="3"/>
+<text x="441.1796875" y="571" font-family="Times New Roman" font-size="42" font-weight="bold" fill="black">File</text>
+<polyline points="100,600 850,600" fill="none" stroke="black" stroke-width="3"/>
+<text x="118" y="647" font-family="Times New Roman" font-size="37" fill="black">- name: String</text>
+<text x="118" y="695" font-family="Times New Roman" font-size="37" fill="black">- sizeBytes: long</text>
+<text x="118" y="743" font-family="Times New Roman" font-size="37" fill="black">+ getName(): String</text>
+<text x="118" y="791" font-family="Times New Roman" font-size="37" fill="black">+ getSizeBytes(): long</text>
+<text x="118" y="839" font-family="Times New Roman" font-size="37" fill="black">+ accept(v: FileSystemVisitor): void</text>
+<rect x="100" y="1110" width="750" height="335" fill="none" stroke="black" stroke-width="3"/>
+<text x="389.109375" y="1161" font-family="Times New Roman" font-size="42" font-weight="bold" fill="black">Directory</text>
+<polyline points="100,1190 850,1190" fill="none" stroke="black" stroke-width="3"/>
+<text x="118" y="1237" font-family="Times New Roman" font-size="37" fill="black">- name: String</text>
+<text x="118" y="1285" font-family="Times New Roman" font-size="37" fill="black">- children: List&lt;FileSystemElement&gt;</text>
+<text x="118" y="1333" font-family="Times New Roman" font-size="37" fill="black">+ getName(): String</text>
+<text x="118" y="1381" font-family="Times New Roman" font-size="37" fill="black">+ getChildren(): List&lt;FileSystemElement&gt;</text>
+<text x="118" y="1429" font-family="Times New Roman" font-size="37" fill="black">+ accept(v: FileSystemVisitor): void</text>
+<rect x="1020" y="455" width="780" height="300" fill="none" stroke="black" stroke-width="3"/>
+<text x="1217.15625" y="506" font-family="Times New Roman" font-size="42" font-weight="bold" fill="black">SizeCalculatorVisitor</text>
+<polyline points="1020,535 1800,535" fill="none" stroke="black" stroke-width="3"/>
+<text x="1038" y="582" font-family="Times New Roman" font-size="37" fill="black">- totalSizeBytes: long</text>
+<text x="1038" y="630" font-family="Times New Roman" font-size="37" fill="black">+ getTotalSizeBytes(): long</text>
+<text x="1038" y="678" font-family="Times New Roman" font-size="37" fill="black">+ visitFile(File): void</text>
+<text x="1038" y="726" font-family="Times New Roman" font-size="37" fill="black">+ visitDirectory(Directory): void</text>
+<rect x="1020" y="800" width="780" height="345" fill="none" stroke="black" stroke-width="3"/>
+<text x="1287.5234375" y="851" font-family="Times New Roman" font-size="42" font-weight="bold" fill="black">SearchVisitor</text>
+<polyline points="1020,880 1800,880" fill="none" stroke="black" stroke-width="3"/>
+<text x="1038" y="927" font-family="Times New Roman" font-size="37" fill="black">- criterion: Predicate&lt;File&gt;</text>
+<text x="1038" y="975" font-family="Times New Roman" font-size="37" fill="black">- matches: List&lt;File&gt;</text>
+<text x="1038" y="1023" font-family="Times New Roman" font-size="37" fill="black">+ getMatches(): List&lt;File&gt;</text>
+<text x="1038" y="1071" font-family="Times New Roman" font-size="37" fill="black">+ visitFile(File): void</text>
+<text x="1038" y="1119" font-family="Times New Roman" font-size="37" fill="black">+ visitDirectory(Directory): void</text>
+<rect x="1020" y="1190" width="780" height="300" fill="none" stroke="black" stroke-width="3"/>
+<text x="1259.125" y="1241" font-family="Times New Roman" font-size="42" font-weight="bold" fill="black">FileCountVisitor</text>
+<polyline points="1020,1270 1800,1270" fill="none" stroke="black" stroke-width="3"/>
+<text x="1038" y="1317" font-family="Times New Roman" font-size="37" fill="black">- fileCount: long</text>
+<text x="1038" y="1365" font-family="Times New Roman" font-size="37" fill="black">+ getFileCount(): long</text>
+<text x="1038" y="1413" font-family="Times New Roman" font-size="37" fill="black">+ visitFile(File): void</text>
+<text x="1038" y="1461" font-family="Times New Roman" font-size="37" fill="black">+ visitDirectory(Directory): void</text>
+<polyline points="470,520 470,333" fill="none" stroke="black" stroke-width="3" stroke-dasharray="11,8"/>
+<polygon points="470,310 453,337 487,337" fill="white" stroke="black" stroke-width="3"/>
+<polyline points="850,1195 925,1195 925,385 750,385 750,333" fill="none" stroke="black" stroke-width="3" stroke-dasharray="11,8"/>
+<polygon points="750,310 733,337 767,337" fill="white" stroke="black" stroke-width="3"/>
+<polyline points="1800,640 1855,640" fill="none" stroke="black" stroke-width="3" stroke-dasharray="11,8"/>
+<polyline points="1800,995 1855,995" fill="none" stroke="black" stroke-width="3" stroke-dasharray="11,8"/>
+<polyline points="1800,1330 1855,1330" fill="none" stroke="black" stroke-width="3" stroke-dasharray="11,8"/>
+<polyline points="1855,1330 1855,175 1823,175" fill="none" stroke="black" stroke-width="3" stroke-dasharray="11,8"/>
+<polygon points="1800,175 1828,158 1828,192" fill="white" stroke="black" stroke-width="3"/>
+<polyline points="850,175 1020,175" fill="none" stroke="black" stroke-width="3" stroke-dasharray="11,8"/>
+<polyline points="1002,163 1020,175 1002,187" fill="none" stroke="black" stroke-width="3"/>
+<text x="884" y="154" font-family="Times New Roman" font-size="37" fill="black">uses</text>
+<polygon points="100,1290 80,1277 60,1290 80,1303" fill="white" stroke="black" stroke-width="3"/>
+<polyline points="60,1290 30,1290 30,175 100,175" fill="none" stroke="black" stroke-width="3"/>
+<text x="37" y="959" font-family="Times New Roman" font-size="37" fill="black">0..*</text>
+<text x="38" y="1008" font-family="Times New Roman" font-size="37" fill="black">children</text>
+<text x="1110" y="1544" font-family="Times New Roman" font-size="37" fill="black">All concrete visitors implement both visit methods.</text>
+</svg>

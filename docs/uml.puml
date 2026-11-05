@@ -1,0 +1,52 @@
+@startuml
+skinparam monochrome true
+skinparam defaultFontName "Times New Roman"
+interface FileSystemElement {
+  +getName(): String
+  +accept(visitor: FileSystemVisitor): void
+}
+interface FileSystemVisitor {
+  +visitFile(file: File): void
+  +visitDirectory(directory: Directory): void
+}
+class File {
+  -name: String
+  -sizeBytes: long
+  +getName(): String
+  +getSizeBytes(): long
+  +accept(visitor: FileSystemVisitor): void
+}
+class Directory {
+  -name: String
+  -children: List<FileSystemElement>
+  +getName(): String
+  +getChildren(): List<FileSystemElement>
+  +accept(visitor: FileSystemVisitor): void
+}
+class SizeCalculatorVisitor {
+  -totalSizeBytes: long
+  +visitFile(file: File): void
+  +visitDirectory(directory: Directory): void
+  +getTotalSizeBytes(): long
+}
+class SearchVisitor {
+  -criterion: Predicate<File>
+  -matches: List<File>
+  +visitFile(file: File): void
+  +visitDirectory(directory: Directory): void
+  +getMatches(): List<File>
+}
+class FileCountVisitor {
+  -fileCount: long
+  +visitFile(file: File): void
+  +visitDirectory(directory: Directory): void
+  +getFileCount(): long
+}
+FileSystemElement <|.. File
+FileSystemElement <|.. Directory
+Directory o-- "0..*" FileSystemElement : children
+FileSystemElement ..> FileSystemVisitor : accept
+FileSystemVisitor <|.. SizeCalculatorVisitor
+FileSystemVisitor <|.. SearchVisitor
+FileSystemVisitor <|.. FileCountVisitor
+@enduml

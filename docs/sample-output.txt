@@ -1,0 +1,16 @@
+File System Visitor Demo
+Structure: project/
+  readme.txt (100 bytes)
+  docs/
+    notes.TXT (200 bytes)
+    guide.pdf (300 bytes)
+  images/
+    logo.png (5000 bytes)
+  todo.txt (500 bytes)
+
+Total size: 6100 bytes
+Text files (.txt, case-insensitive):
+  readme.txt (100 bytes)
+  notes.TXT (200 bytes)
+  todo.txt (500 bytes)
+File count: 5
