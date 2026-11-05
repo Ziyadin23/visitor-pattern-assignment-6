@@ -3,6 +3,7 @@ package edu.aitu.visitor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Locale;
 
 /** Dependency-free tests. Every check throws on failure, even without -ea. */
 public final class VisitorPatternTest {
@@ -34,6 +35,36 @@ public final class VisitorPatternTest {
             children.add(null);
             expect(NullPointerException.class, () -> new Directory("root", children));
         });
+        test("recursive case-insensitive search", () -> equal(
+                List.of("readme.txt", "notes.TXT", "todo.txt"), matchingTextNames(fixture())));
+        test("search with size predicate", () -> {
+            SearchVisitor search = new SearchVisitor(file -> file.getSizeBytes() > 1000);
+            fixture().accept(search);
+            equal(List.of("logo.png"), names(search));
+        });
+        test("no search match", () -> {
+            SearchVisitor search = new SearchVisitor(file -> false);
+            fixture().accept(search);
+            equal(List.of(), names(search));
+        });
+        test("search empty directory", () -> equal(List.of(), matchingTextNames(new Directory("empty", List.of()))));
+        test("direct file search", () -> equal(List.of("a.txt"), matchingTextNames(new File("a.txt", 1))));
+        test("directory names are not file matches", () -> equal(List.of(), matchingTextNames(
+                new Directory("folder.txt", List.of(new File("data.bin", 1))))));
+        test("search results are immutable", () -> {
+            SearchVisitor search = new SearchVisitor(file -> true);
+            fixture().accept(search);
+            expect(UnsupportedOperationException.class, () -> search.getMatches().clear());
+        });
+        test("search results are snapshots", () -> {
+            SearchVisitor search = new SearchVisitor(file -> true);
+            new File("first", 1).accept(search);
+            List<File> snapshot = search.getMatches();
+            new File("second", 1).accept(search);
+            equal(1, snapshot.size());
+            equal(2, search.getMatches().size());
+        });
+        test("null predicate rejected", () -> expect(NullPointerException.class, () -> new SearchVisitor(null)));
         System.out.println("All " + passed + " tests passed.");
     }
 
@@ -76,6 +107,17 @@ public final class VisitorPatternTest {
         Directory directory = new Directory("root", original);
         original.add(new File("b", 20));
         equal(10L, size(directory));
+    }
+
+    private static List<String> matchingTextNames(FileSystemElement root) {
+        SearchVisitor search = new SearchVisitor(file ->
+                file.getName().toLowerCase(Locale.ROOT).endsWith(".txt"));
+        root.accept(search);
+        return names(search);
+    }
+
+    private static List<String> names(SearchVisitor search) {
+        return search.getMatches().stream().map(File::getName).toList();
     }
 
     private static void test(String name, Runnable body) {
