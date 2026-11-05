@@ -46,5 +46,5 @@
 **Files:** README.md, docs/{uml.svg,uml.png,uml.puml,sample-output.txt,defense-guide.md,requirements.md,Visitor_Pattern_Report.docx}.
 - [x] Capture actual demo output; create UML matching final code and explain double dispatch and five Clean Code principles with excerpts.
 - [x] Render report with bundled LibreOffice; inspect all pages and fix layout issues.
-- [ ] Run whole-project checks, obtain independent review and fix material findings.
-- [ ] Commit documentation, create public repository, push all commits, and verify anonymous access.
+- [x] Run whole-project checks, obtain independent review and fix material findings.
+- [x] Commit documentation, create public repository, push all commits, and verify anonymous access.
